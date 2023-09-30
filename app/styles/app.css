@@ -180,3 +180,10 @@ shop-pay-button {
     }
   }
 }
+
+
+.logo {
+  width: 190px;
+  top: -30px;
+  left: -30px;
+}

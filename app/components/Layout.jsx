@@ -2,7 +2,7 @@ import {useParams, Form, Await, useMatches} from '@remix-run/react';
 import {useWindowScroll} from 'react-use';
 import {Disclosure} from '@headlessui/react';
 import {Suspense, useEffect, useMemo} from 'react';
-import {CartForm} from '@shopify/hydrogen';
+import { CartForm,Image } from '@shopify/hydrogen';
 import {
   Drawer,
   useDrawer,
@@ -23,7 +23,8 @@ import {
 } from '~/components';
 import {useIsHomePath} from '~/lib/utils';
 import {useIsHydrated} from '~/hooks/useIsHydrated';
-import {useCartFetchers} from '~/hooks/useCartFetchers';
+import { useCartFetchers } from '~/hooks/useCartFetchers';
+import logo1 from '../assets/logo1.jpg';
 
 export function Layout({children, layout}) {
   const {headerMenu, footerMenu} = layout;
@@ -150,7 +151,7 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
       role="banner"
       className={`${
         isHome
-          ? 'bg-primary/80 dark:bg-contrast/60 text-contrast dark:text-primary shadow-darkHeader'
+          ? 'bg-primary/0 dark:bg-contrast/60 text-contrast dark:text-primary'
           : 'bg-contrast/80 text-primary'
       } flex lg:hidden items-center h-nav sticky backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-4 px-4 md:px-8`}
     >
@@ -159,7 +160,7 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
           onClick={openMenu}
           className="relative flex items-center justify-center w-8 h-8"
         >
-          <IconMenu />
+          <IconMenu className="text-primary" />
         </button>
         <Form
           method="get"
@@ -170,7 +171,7 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
             type="submit"
             className="relative flex items-center justify-center w-8 h-8"
           >
-            <IconSearch />
+            <IconSearch className="text-primary"/>
           </button>
           <Input
             className={
@@ -180,7 +181,7 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
             }
             type="search"
             variant="minisearch"
-            placeholder="Search"
+            placeholder="Buscar..."
             name="q"
           />
         </Form>
@@ -190,17 +191,12 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
         className="flex items-center self-stretch leading-[3rem] md:leading-[4rem] justify-center flex-grow w-full h-full"
         to="/"
       >
-        <Heading
-          className="font-bold text-center leading-none"
-          as={isHome ? 'h1' : 'h2'}
-        >
-          {title}
-        </Heading>
+        <Image className='rounded w-3/5' alt={title} srcSet={logo1} width={100} />
       </Link>
 
       <div className="flex items-center justify-end w-full gap-4">
-        <AccountLink className="relative flex items-center justify-center w-8 h-8" />
-        <CartCount isHome={isHome} openCart={openCart} />
+        <AccountLink className=" text-primary relative flex items-center justify-center w-8 h-8" />
+        <CartCount isHome={isHome} openCart={openCart} className="text-primary" />
       </div>
     </header>
   );
@@ -208,7 +204,8 @@ function MobileHeader({title, isHome, openCart, openMenu}) {
 
 function DesktopHeader({isHome, menu, openCart, title}) {
   const params = useParams();
-  const {y} = useWindowScroll();
+  const { y } = useWindowScroll();
+
   return (
     <header
       role="banner"
@@ -218,11 +215,11 @@ function DesktopHeader({isHome, menu, openCart, title}) {
           : 'bg-contrast/80 text-primary'
       } ${
         !isHome && y > 50 && ' shadow-lightHeader'
-      } hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-8`}
+      } hidden h-nav lg:flex items-center sticky transition duration-300 backdrop-blur-lg z-40 top-0 justify-between w-full leading-none gap-8 px-12 py-4`}
     >
       <div className="flex gap-12">
-        <Link className="font-bold" to="/" prefetch="intent">
-          {title}
+        <Link className="font-bold relative logo" to="/" prefetch="intent">
+          <Image className="absolute w-full rounded" alt={title} srcSet={logo1} width={100} />
         </Link>
         <nav className="flex gap-8">
           {/* Top level menu items */}
@@ -255,14 +252,14 @@ function DesktopHeader({isHome, menu, openCart, title}) {
             }
             type="search"
             variant="minisearch"
-            placeholder="Search"
+            placeholder="Buscar..."
             name="q"
           />
           <button
             type="submit"
             className="relative flex items-center justify-center w-8 h-8 focus:ring-primary/5"
           >
-            <IconSearch />
+            <IconSearch className="text-primary" />
           </button>
         </Form>
         <AccountLink className="relative flex items-center justify-center w-8 h-8 focus:ring-primary/5" />
@@ -277,11 +274,11 @@ function AccountLink({className}) {
   const isLoggedIn = root.data?.isLoggedIn;
   return isLoggedIn ? (
     <Link to="/account" className={className}>
-      <IconAccount />
+      <IconAccount className="text-primary" />
     </Link>
   ) : (
     <Link to="/account/login" className={className}>
-      <IconLogin />
+      <IconLogin className="text-primary" />
     </Link>
   );
 }
@@ -310,13 +307,13 @@ function Badge({openCart, dark, count}) {
   const BadgeCounter = useMemo(
     () => (
       <>
-        <IconBag />
+        <IconBag className="text-primary" />
         <div
           className={`${
             dark
-              ? 'text-primary bg-contrast dark:text-contrast dark:bg-primary'
-              : 'text-contrast bg-primary'
-          } absolute bottom-1 right-1 text-[0.625rem] font-medium subpixel-antialiased h-3 min-w-[0.75rem] flex items-center justify-center leading-none text-center rounded-full w-auto px-[0.125rem] pb-px`}
+              ? 'dark:text-primary bg-contrast text-contrast dark:bg-pink-300'
+              : 'text-contrast bg-contrast '
+          } absolute bottom-1 right-1 text-[0.625rem] font-medium subpixel-antialiased h-3 min-w-[0.75rem] flex items-center justify-center leading-none text-center rounded-full w-auto px-[0.125rem] pb-px bg-pink-300`}
         >
           <span>{count || 0}</span>
         </div>
@@ -359,13 +356,6 @@ function Footer({menu}) {
         bg-primary dark:bg-contrast dark:text-primary text-contrast overflow-hidden`}
     >
       <FooterMenu menu={menu} />
-      <CountrySelector />
-      <div
-        className={`self-end pt-8 opacity-50 md:col-span-2 lg:col-span-${itemsCount}`}
-      >
-        &copy; {new Date().getFullYear()} / Shopify, Inc. Hydrogen is an MIT
-        Licensed Open Source project.
-      </div>
     </Section>
   );
 }
