@@ -88,10 +88,10 @@ function CartDiscounts({discountCodes}) {
             className={getInputStyleClasses()}
             type="text"
             name="discountCode"
-            placeholder="Discount code"
+            placeholder="Código de descuento"
           />
           <button className="flex justify-end font-medium whitespace-nowrap">
-            Apply Discount
+            Aplicar descuento
           </button>
         </div>
       </UpdateDiscountForm>
@@ -147,7 +147,7 @@ function CartCheckoutActions({checkoutUrl}) {
     <div className="flex flex-col mt-2">
       <a href={checkoutUrl} target="_self">
         <Button as="span" width="full">
-          Continue to Checkout
+          Finalizar compra
         </Button>
       </a>
       {/* @todo: <CartShopPayButton cart={cart} /> */}

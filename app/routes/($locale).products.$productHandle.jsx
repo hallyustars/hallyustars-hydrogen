@@ -337,7 +337,7 @@ export function ProductForm({variants}) {
                   as="span"
                   className="flex items-center justify-center gap-2"
                 >
-                  <span>Add to Cart</span> <span>·</span>{' '}
+                  <span>Añadir al carrito</span> <span>·</span>{' '}
                   <Money
                     withoutTrailingZeros
                     data={selectedVariant?.price}
@@ -354,13 +354,13 @@ export function ProductForm({variants}) {
                 </Text>
               </AddToCartButton>
             )}
-            {!isOutOfStock && (
+            {/* {!isOutOfStock && (
               <ShopPayButton
                 width="100%"
                 variantIds={[selectedVariant?.id]}
                 storeDomain={storeDomain}
               />
-            )}
+            )} */}
           </div>
         )}
       </div>

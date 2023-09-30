@@ -172,7 +172,7 @@ export default function Register() {
           </div>
           <div className="flex items-center mt-8 border-t border-gray-300">
             <p className="align-baseline text-sm mt-6">
-              Already have an account? &nbsp;
+              Ya tienes una cuenta? &nbsp;
               <Link className="inline underline" to="/account/login">
                 Iniciar Sesión
               </Link>
