@@ -77,7 +77,7 @@ function CartDiscounts({discountCodes}) {
       </dl>
 
       {/* Show an input to apply a discount */}
-      <UpdateDiscountForm discountCodes={codes}>
+      {/* <UpdateDiscountForm discountCodes={codes}>
         <div
           className={clsx(
             'flex',
@@ -94,7 +94,7 @@ function CartDiscounts({discountCodes}) {
             Aplicar descuento
           </button>
         </div>
-      </UpdateDiscountForm>
+      </UpdateDiscountForm> */}
     </>
   );
 }

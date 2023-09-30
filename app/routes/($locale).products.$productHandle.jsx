@@ -34,7 +34,7 @@ export const headers = routeHeaders;
 
 export async function loader({params, request, context}) {
   const {productHandle} = params;
-  invariant(productHandle, 'Missing productHandle param, check route filename');
+  invariant(productHandle, 'Falta el identificador del producto productHandle');
 
   const selectedOptions = getSelectedProductOptions(request);
 
@@ -316,7 +316,7 @@ export function ProductForm({variants}) {
           <div className="grid items-stretch gap-4">
             {isOutOfStock ? (
               <Button variant="secondary" disabled>
-                <Text>Sold out</Text>
+                <Text>Agotado</Text>
               </Button>
             ) : (
               <AddToCartButton

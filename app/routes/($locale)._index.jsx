@@ -120,7 +120,7 @@ export async function loader({params, context}) {
             </Suspense>
           )}
 
-          {featuredCollections && (
+          {/* {featuredCollections && (
             <Suspense>
               <Await resolve={featuredCollections}>
                 {({collections}) => {
@@ -134,9 +134,9 @@ export async function loader({params, context}) {
                 }}
               </Await>
             </Suspense>
-          )}
+          )} */}
 
-          {tertiaryHero && (
+          {/* {tertiaryHero && (
             <Suspense fallback={<Hero {...skeletons[2]} />}>
               <Await resolve={tertiaryHero}>
                 {({hero}) => {
@@ -145,7 +145,7 @@ export async function loader({params, context}) {
                 }}
               </Await>
             </Suspense>
-          )}
+          )} */}
         </>
       );
     }
