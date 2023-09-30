@@ -34,7 +34,7 @@ export function CountrySelector() {
     ref(observerRef.current);
   }, [ref, observerRef]);
 
-  // Get available countries list when in view
+  // Obtener la lista de países disponibles cuando esté en vista
   useEffect(() => {
     if (!inView || fetcher.data || fetcher.state === 'loading') return;
     fetcher.load('/api/countries');
@@ -51,7 +51,7 @@ export function CountrySelector() {
       onMouseLeave={closeDropdown}
     >
       <Heading size="lead" className="cursor-default" as="h3">
-        Country
+        País
       </Heading>
       <div className="relative">
         <details

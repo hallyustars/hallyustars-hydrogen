@@ -86,177 +86,177 @@ export const action = async ({request, context, params}) => {
 
     return redirect(params?.locale ? `${params.locale}/account` : '/account');
   } catch (error) {
-    return badRequest({formError: error.message});
-  }
-};
+      return badRequest({formError: error.message});
+    }
+  };
 
-/**
- * Since this component is nested in `accounts/`, it is rendered in a modal via `<Outlet>` in `account.tsx`.
- *
- * This allows us to:
- * - preserve URL state (`/accounts/edit` when the modal is open)
- * - co-locate the edit action with the edit form (rather than grouped in account.tsx)
- * - use the `useOutletContext` hook to access the customer data from the parent route (no additional data loading)
- * - return a simple `redirect()` from this action to close the modal :mindblown: (no useState/useEffect)
- * - use the presence of outlet data (in `account.tsx`) to open/close the modal (no useState)
- */
-export default function AccountDetailsEdit() {
-  const actionData = useActionData();
-  const {customer} = useOutletContext();
-  const {state} = useNavigation();
+  /**
+   * Dado que este componente está anidado en `accounts /`, se representa en un modal a través de `<Outlet>` en `account.tsx`.
+   *
+   * Esto nos permite:
+   * - preservar el estado de URL (`/accounts/edit` cuando el modal está abierto)
+   * - colocar la acción de edición con el formulario de edición (en lugar de agruparse en account.tsx)
+   * - utilizar el gancho `useOutletContext` para acceder a los datos del cliente desde la ruta principal (sin carga de datos adicional)
+   * - devolver una simple `redirect()` desde esta acción para cerrar el modal :mindblown: (sin useState/useEffect)
+   * - utilizar la presencia de datos de salida (en `account.tsx`) para abrir/cerrar el modal (sin useState)
+   */
+  export default function AccountDetailsEdit() {
+    const actionData = useActionData();
+    const {customer} = useOutletContext();
+    const {state} = useNavigation();
 
-  return (
-    <>
-      <Text className="mt-4 mb-6" as="h3" size="lead">
-        Update your profile
-      </Text>
-      <Form method="post">
-        {actionData?.formError && (
-          <div className="flex items-center justify-center mb-6 bg-red-100 rounded">
-            <p className="m-4 text-sm text-red-900">{actionData.formError}</p>
+    return (
+      <>
+        <Text className="mt-4 mb-6" as="h3" size="lead">
+          Actualiza tu perfil
+        </Text>
+        <Form method="post">
+          {actionData?.formError && (
+            <div className="flex items-center justify-center mb-6 bg-red-100 rounded">
+              <p className="m-4 text-sm text-red-900">{actionData.formError}</p>
+            </div>
+          )}
+          <div className="mt-3">
+            <input
+              className={getInputStyleClasses()}
+              id="firstName"
+              name="firstName"
+              type="text"
+              autoComplete="given-name"
+              placeholder="Nombre"
+              aria-label="Nombre"
+              defaultValue={customer.firstName ?? ''}
+            />
           </div>
-        )}
-        <div className="mt-3">
-          <input
-            className={getInputStyleClasses()}
-            id="firstName"
-            name="firstName"
-            type="text"
-            autoComplete="given-name"
-            placeholder="First name"
-            aria-label="First name"
-            defaultValue={customer.firstName ?? ''}
-          />
-        </div>
-        <div className="mt-3">
-          <input
-            className={getInputStyleClasses()}
-            id="lastName"
-            name="lastName"
-            type="text"
-            autoComplete="family-name"
-            placeholder="Last name"
-            aria-label="Last name"
-            defaultValue={customer.lastName ?? ''}
-          />
-        </div>
-        <div className="mt-3">
-          <input
-            className={getInputStyleClasses()}
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            placeholder="Mobile"
-            aria-label="Mobile"
-            defaultValue={customer.phone ?? ''}
-          />
-        </div>
-        <div className="mt-3">
-          <input
-            className={getInputStyleClasses(actionData?.fieldErrors?.email)}
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            placeholder="Email address"
-            aria-label="Email address"
-            defaultValue={customer.email ?? ''}
-          />
-          {actionData?.fieldErrors?.email && (
-            <p className="text-red-500 text-xs">
-              {actionData.fieldErrors.email} &nbsp;
-            </p>
-          )}
-        </div>
-        <Text className="mb-6 mt-6" as="h3" size="lead">
-          Change your password
-        </Text>
-        <Password
-          name="currentPassword"
-          label="Current password"
-          passwordError={actionData?.fieldErrors?.currentPassword}
-        />
-        {actionData?.fieldErrors?.currentPassword && (
-          <Text size="fine" className="mt-1 text-red-500">
-            {actionData.fieldErrors.currentPassword} &nbsp;
+          <div className="mt-3">
+            <input
+              className={getInputStyleClasses()}
+              id="lastName"
+              name="lastName"
+              type="text"
+              autoComplete="family-name"
+              placeholder="Apellido"
+              aria-label="Apellido"
+              defaultValue={customer.lastName ?? ''}
+            />
+          </div>
+          <div className="mt-3">
+            <input
+              className={getInputStyleClasses()}
+              id="phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              placeholder="Móvil"
+              aria-label="Móvil"
+              defaultValue={customer.phone ?? ''}
+            />
+          </div>
+          <div className="mt-3">
+            <input
+              className={getInputStyleClasses(actionData?.fieldErrors?.email)}
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              placeholder="Correo electrónico"
+              aria-label="Correo electrónico"
+              defaultValue={customer.email ?? ''}
+            />
+            {actionData?.fieldErrors?.email && (
+              <p className="text-red-500 text-xs">
+                {actionData.fieldErrors.email} &nbsp;
+              </p>
+            )}
+          </div>
+          <Text className="mb-6 mt-6" as="h3" size="lead">
+            Cambia tu contraseña
           </Text>
-        )}
-        <Password
-          name="newPassword"
-          label="New password"
-          passwordError={actionData?.fieldErrors?.newPassword}
-        />
-        <Password
-          name="newPassword2"
-          label="Re-enter new password"
-          passwordError={actionData?.fieldErrors?.newPassword2}
-        />
-        <Text
-          size="fine"
-          color="subtle"
-          className={clsx(
-            'mt-1',
-            actionData?.fieldErrors?.newPassword && 'text-red-500',
+          <Password
+            name="currentPassword"
+            label="Contraseña actual"
+            passwordError={actionData?.fieldErrors?.currentPassword}
+          />
+          {actionData?.fieldErrors?.currentPassword && (
+            <Text size="fine" className="mt-1 text-red-500">
+              {actionData.fieldErrors.currentPassword} &nbsp;
+            </Text>
           )}
-        >
-          Passwords must be at least 8 characters.
-        </Text>
-        {actionData?.fieldErrors?.newPassword2 ? <br /> : null}
-        {actionData?.fieldErrors?.newPassword2 && (
-          <Text size="fine" className="mt-1 text-red-500">
-            {actionData.fieldErrors.newPassword2} &nbsp;
-          </Text>
-        )}
-        <div className="mt-6">
-          <Button
-            className="text-sm mb-2"
-            variant="primary"
-            width="full"
-            type="submit"
-            disabled={state !== 'idle'}
+          <Password
+            name="newPassword"
+            label="Nueva contraseña"
+            passwordError={actionData?.fieldErrors?.newPassword}
+          />
+          <Password
+            name="newPassword2"
+            label="Vuelve a escribir la nueva contraseña"
+            passwordError={actionData?.fieldErrors?.newPassword2}
+          />
+          <Text
+            size="fine"
+            color="subtle"
+            className={clsx(
+              'mt-1',
+              actionData?.fieldErrors?.newPassword && 'text-red-500',
+            )}
           >
-            {state !== 'idle' ? 'Saving' : 'Save'}
-          </Button>
-        </div>
-        <div className="mb-4">
-          <Button to=".." className="text-sm" variant="secondary" width="full">
-            Cancel
-          </Button>
-        </div>
-      </Form>
-    </>
-  );
-}
+            Las contraseñas deben tener al menos 8 caracteres.
+          </Text>
+          {actionData?.fieldErrors?.newPassword2 ? <br /> : null}
+          {actionData?.fieldErrors?.newPassword2 && (
+            <Text size="fine" className="mt-1 text-red-500">
+              {actionData.fieldErrors.newPassword2} &nbsp;
+            </Text>
+          )}
+          <div className="mt-6">
+            <Button
+              className="text-sm mb-2"
+              variant="primary"
+              width="full"
+              type="submit"
+              disabled={state !== 'idle'}
+            >
+              {state !== 'idle' ? 'Guardando' : 'Guardar'}
+            </Button>
+          </div>
+          <div className="mb-4">
+            <Button to=".." className="text-sm" variant="secondary" width="full">
+              Cancelar
+            </Button>
+          </div>
+        </Form>
+      </>
+    );
+  }
 
-function Password({name, passwordError, label}) {
-  return (
-    <div className="mt-3">
-      <input
-        className={getInputStyleClasses(passwordError)}
-        id={name}
-        name={name}
-        type="password"
-        autoComplete={
-          name === 'currentPassword' ? 'current-password' : undefined
+  function Password({name, passwordError, label}) {
+    return (
+      <div className="mt-3">
+        <input
+          className={getInputStyleClasses(passwordError)}
+          id={name}
+          name={name}
+          type="password"
+          autoComplete={
+            name === 'currentPassword' ? 'current-password' : undefined
+          }
+          placeholder={label}
+          aria-label={label}
+          minLength={8}
+        />
+      </div>
+    );
+  }
+
+  const CUSTOMER_UPDATE_MUTATION = `#graphql
+    mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
+      customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
+        customerUserErrors {
+          code
+          field
+          message
         }
-        placeholder={label}
-        aria-label={label}
-        minLength={8}
-      />
-    </div>
-  );
-}
-
-const CUSTOMER_UPDATE_MUTATION = `#graphql
-  mutation customerUpdate($customerAccessToken: String!, $customer: CustomerUpdateInput!) {
-    customerUpdate(customerAccessToken: $customerAccessToken, customer: $customer) {
-      customerUserErrors {
-        code
-        field
-        message
       }
     }
-  }
-  `;
+    `;

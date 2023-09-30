@@ -1,7 +1,7 @@
 import {Image} from '@shopify/hydrogen';
 
 /**
- * A client component that defines a media gallery for hosting images, 3D models, and videos of products
+ * Un componente de cliente que define una galería de medios para alojar imágenes, modelos 3D y videos de productos
  */
 export function ProductGallery({media, className}) {
   if (!media.length) {
@@ -19,7 +19,7 @@ export function ProductGallery({media, className}) {
 
         const image =
           med.__typename === 'MediaImage'
-            ? {...med.image, altText: med.alt || 'Product image'}
+            ? {...med.image, altText: med.alt || 'Imagen del producto'}
             : null;
 
         const style = [

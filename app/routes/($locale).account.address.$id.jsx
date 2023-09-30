@@ -23,10 +23,10 @@ export const action = async ({request, context, params}) => {
   const formData = await request.formData();
 
   const customerAccessToken = await session.get('customerAccessToken');
-  invariant(customerAccessToken, 'You must be logged in to edit your account.');
+  invariant(customerAccessToken, 'Debes estar registrado para editar tu cuenta.');
 
   const addressId = formData.get('addressId');
-  invariant(typeof addressId === 'string', 'You must provide an address id.');
+  invariant(typeof addressId === 'string', 'Debes proporcionar un ID de dirección.');
 
   if (request.method === 'DELETE') {
     try {
@@ -75,7 +75,7 @@ export const action = async ({request, context, params}) => {
       assertApiErrors(data.customerAddressCreate);
 
       const newId = data.customerAddressCreate?.customerAddress?.id;
-      invariant(newId, 'Expected customer address to be created');
+      invariant(newId, 'Se esperaba que se creara la dirección del cliente');
 
       if (defaultAddress) {
         const data = await storefront.mutate(UPDATE_DEFAULT_ADDRESS_MUTATION, {
@@ -142,7 +142,7 @@ export default function EditAddress() {
   return (
     <>
       <Text className="mt-4 mb-6" as="h3" size="lead">
-        {isNewAddress ? 'Add address' : 'Edit address'}
+        {isNewAddress ? 'Agregar dirección' : 'Editar dirección'}
       </Text>
       <div className="max-w-lg">
         <Form method="post">
@@ -164,8 +164,8 @@ export default function EditAddress() {
               required
               type="text"
               autoComplete="given-name"
-              placeholder="First name"
-              aria-label="First name"
+              placeholder="Nombre"
+              aria-label="Nombre"
               defaultValue={address?.firstName ?? ''}
             />
           </div>
@@ -177,8 +177,8 @@ export default function EditAddress() {
               required
               type="text"
               autoComplete="family-name"
-              placeholder="Last name"
-              aria-label="Last name"
+              placeholder="Apellido"
+              aria-label="Apellido"
               defaultValue={address?.lastName ?? ''}
             />
           </div>
@@ -189,8 +189,8 @@ export default function EditAddress() {
               name="company"
               type="text"
               autoComplete="organization"
-              placeholder="Company"
-              aria-label="Company"
+              placeholder="Empresa"
+              aria-label="Empresa"
               defaultValue={address?.company ?? ''}
             />
           </div>
@@ -201,9 +201,9 @@ export default function EditAddress() {
               name="address1"
               type="text"
               autoComplete="address-line1"
-              placeholder="Address line 1*"
+              placeholder="Dirección línea 1*"
               required
-              aria-label="Address line 1"
+              aria-label="Dirección línea 1"
               defaultValue={address?.address1 ?? ''}
             />
           </div>
@@ -214,8 +214,8 @@ export default function EditAddress() {
               name="address2"
               type="text"
               autoComplete="address-line2"
-              placeholder="Address line 2"
-              aria-label="Address line 2"
+              placeholder="Dirección línea 2"
+              aria-label="Dirección línea 2"
               defaultValue={address?.address2 ?? ''}
             />
           </div>
@@ -227,8 +227,8 @@ export default function EditAddress() {
               type="text"
               required
               autoComplete="address-level2"
-              placeholder="City"
-              aria-label="City"
+              placeholder="Ciudad"
+              aria-label="Ciudad"
               defaultValue={address?.city ?? ''}
             />
           </div>
@@ -239,9 +239,9 @@ export default function EditAddress() {
               name="province"
               type="text"
               autoComplete="address-level1"
-              placeholder="State / Province"
+              placeholder="Provincia"
               required
-              aria-label="State"
+              aria-label="Provincia"
               defaultValue={address?.province ?? ''}
             />
           </div>
@@ -252,9 +252,9 @@ export default function EditAddress() {
               name="zip"
               type="text"
               autoComplete="postal-code"
-              placeholder="Zip / Postal Code"
+              placeholder="Código Postal"
               required
-              aria-label="Zip"
+              aria-label="Código Postal"
               defaultValue={address?.zip ?? ''}
             />
           </div>
@@ -265,9 +265,9 @@ export default function EditAddress() {
               name="country"
               type="text"
               autoComplete="country-name"
-              placeholder="Country"
+              placeholder="País"
               required
-              aria-label="Country"
+              aria-label="País"
               defaultValue={address?.country ?? ''}
             />
           </div>
@@ -278,8 +278,8 @@ export default function EditAddress() {
               name="phone"
               type="tel"
               autoComplete="tel"
-              placeholder="Phone"
-              aria-label="Phone"
+              placeholder="Teléfono"
+              aria-label="Teléfono"
               defaultValue={address?.phone ?? ''}
             />
           </div>
@@ -295,7 +295,7 @@ export default function EditAddress() {
               className="inline-block ml-2 text-sm cursor-pointer"
               htmlFor="defaultAddress"
             >
-              Set as default address
+              Establecer como dirección predeterminada
             </label>
           </div>
           <div className="mt-8">
@@ -305,7 +305,7 @@ export default function EditAddress() {
               variant="primary"
               disabled={state !== 'idle'}
             >
-              {state !== 'idle' ? 'Saving' : 'Save'}
+              {state !== 'idle' ? 'Guardando' : 'Guardar'}
             </Button>
           </div>
           <div>
@@ -314,7 +314,7 @@ export default function EditAddress() {
               className="w-full mt-2 rounded focus:shadow-outline"
               variant="secondary"
             >
-              Cancel
+              Cancelar
             </Button>
           </div>
         </Form>

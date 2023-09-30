@@ -11,11 +11,11 @@ export const headers = routeHeaders;
 export async function loader({request, context: {storefront}}) {
   const data = await storefront.query(POLICIES_QUERY);
 
-  invariant(data, 'No data returned from Shopify API');
+  invariant(data, 'No existe información de la política');
   const policies = Object.values(data.shop).filter(Boolean);
 
   if (policies.length === 0) {
-    throw new Response('Not found', {status: 404});
+    throw new Response('No existen políticas', {status: 404});
   }
 
   const seo = seoPayload.policies({policies, url: request.url});
@@ -31,7 +31,7 @@ export default function Policies() {
 
   return (
     <>
-      <PageHeader heading="Policies" />
+      <PageHeader heading="Políticas" />
       <Section padding="x" className="mb-24">
         {policies.map((policy) => {
           return (

@@ -30,13 +30,13 @@ export async function loader({request, context: {storefront}}) {
     url: request.url,
     collection: {
       id: 'all-products',
-      title: 'All Products',
+      title: 'Todos los Productos',
       handle: 'products',
-      descriptionHtml: 'All the store products',
-      description: 'All the store products',
+      descriptionHtml: 'Todos los productos de la tienda',
+      description: 'Todos los productos de la tienda',
       seo: {
-        title: 'All Products',
-        description: 'All the store products',
+        title: 'Todos los Productos',
+        description: 'Todos los productos de la tienda',
       },
       metafields: [],
       products: data.products,
@@ -71,13 +71,13 @@ export default function AllProducts() {
               <>
                 <div className="flex items-center justify-center mt-6">
                   <PreviousLink className="inline-block rounded font-medium text-center py-3 px-6 border border-primary/10 bg-contrast text-primary w-full">
-                    {isLoading ? 'Loading...' : 'Previous'}
+                    {isLoading ? 'Cargando...' : 'Anterior'}
                   </PreviousLink>
                 </div>
                 <Grid data-test="product-grid">{itemsMarkup}</Grid>
                 <div className="flex items-center justify-center mt-6">
                   <NextLink className="inline-block rounded font-medium text-center py-3 px-6 border border-primary/10 bg-contrast text-primary w-full">
-                    {isLoading ? 'Loading...' : 'Next'}
+                    {isLoading ? 'Cargando...' : 'Siguiente'}
                   </NextLink>
                 </div>
               </>

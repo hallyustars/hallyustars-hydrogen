@@ -52,7 +52,7 @@ export async function loader({request, context: {storefront}}) {
     cache: storefront.CacheLong(),
   });
 
-  invariant(products, 'No data returned from top products query');
+  invariant(products, 'No existen datos de la API de Shopify sobre los productos');
 
   return json({
     products: flattenConnection(products),

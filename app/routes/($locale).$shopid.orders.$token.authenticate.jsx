@@ -4,11 +4,11 @@ import invariant from 'tiny-invariant';
 import {Button, PageHeader} from '~/components';
 
 /*
- If your online store had active orders before you launched your Hydrogen storefront,
- and the Hydrogen storefront uses the same domain formerly used by the online store,
- then customers will receive 404 pages when they click on the old order status URLs
- that are routing to your Hydrogen storefront. To prevent this, ensure that you redirect
- those requests back to Shopify.
+ Si tu tienda en línea tenía pedidos activos antes de lanzar tu tienda Hydrogen,
+ y la tienda Hydrogen utiliza el mismo dominio que antes usaba la tienda en línea,
+ entonces los clientes recibirán páginas 404 cuando hagan clic en las antiguas URL de estado de pedido
+ que se están redirigiendo a tu tienda Hydrogen. Para evitar esto, asegúrate de redirigir
+ esas solicitudes de vuelta a Shopify.
 */
 export async function loader({request, context: {storefront}}) {
   const {origin} = new URL(request.url);
@@ -18,7 +18,7 @@ export async function loader({request, context: {storefront}}) {
     `,
     {cache: storefront.CacheLong()},
   );
-  invariant(shop, 'Error redirecting to the order status URL');
+  invariant(shop, 'Error al redirigir a la URL de estado del pedido');
   return redirect(request.url.replace(origin, shop.primaryDomain.url));
 }
 
@@ -28,12 +28,12 @@ export default function () {
 export function ErrorBoundary() {
   return (
     <PageHeader
-      heading={'Error redirecting to the order status URL'}
+      heading={'Error al redirigir a la URL de estado del pedido'}
       className="text-red-600"
     >
       <div className="flex items-baseline justify-between w-full">
         <Button as="button" onClick={() => window.location.reload()}>
-          Try Again
+          Intentar de nuevo
         </Button>
       </div>
     </PageHeader>

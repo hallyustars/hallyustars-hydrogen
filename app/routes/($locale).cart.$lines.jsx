@@ -48,7 +48,7 @@ export async function loader({request, context, params}) {
   const cartResult = result.cart;
 
   if (result.errors?.length || !cartResult) {
-    throw new Response('Link may be expired. Try checking the URL.', {
+    throw new Response('El link expiró. Prueba de nuevo', {
       status: 410,
     });
   }
@@ -60,7 +60,7 @@ export async function loader({request, context, params}) {
   if (cartResult.checkoutUrl) {
     return redirect(cartResult.checkoutUrl, {headers});
   } else {
-    throw new Error('No checkout URL found');
+    throw new Error('No se pudo crear el carrito');
   }
 }
 

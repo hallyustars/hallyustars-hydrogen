@@ -19,7 +19,7 @@ export async function loader({request, context, params}) {
   const queryParams = new URL(request.url).searchParams;
   const orderToken = queryParams.get('key');
 
-  invariant(orderToken, 'Order token is required');
+  invariant(orderToken, 'Token de orden no encontrado');
 
   const customerAccessToken = await context.session.get('customerAccessToken');
 
@@ -36,7 +36,7 @@ export async function loader({request, context, params}) {
   });
 
   if (!order || !('lineItems' in order)) {
-    throw new Response('Order not found', {status: 404});
+    throw new Response('Orden no encontrada', {status: 404});
   }
 
   const lineItems = flattenConnection(order.lineItems);
@@ -72,10 +72,10 @@ export default function OrderRoute() {
       <div className="w-full p-6 sm:grid-cols-1 md:p-8 lg:p-12 lg:py-6">
         <div>
           <Text as="h3" size="lead">
-            Order No. {order.name}
+            Orden No. {order.name}
           </Text>
           <Text className="mt-2" as="p">
-            Placed on {new Date(order.processedAt).toDateString()}
+            Realizado el {new Date(order.processedAt).toDateString()}
           </Text>
           <div className="grid items-start gap-12 sm:grid-cols-1 md:grid-cols-4 md:gap-16 sm:divide-y sm:divide-gray-200">
             <table className="min-w-full my-8 divide-y divide-gray-300 md:col-span-3">
@@ -85,19 +85,19 @@ export default function OrderRoute() {
                     scope="col"
                     className="pb-4 pl-0 pr-3 font-semibold text-left"
                   >
-                    Product
+                    Producto
                   </th>
                   <th
                     scope="col"
                     className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell"
                   >
-                    Price
+                    Precio
                   </th>
                   <th
                     scope="col"
                     className="hidden px-4 pb-4 font-semibold text-right sm:table-cell md:table-cell"
                   >
-                    Quantity
+                    Cantidad
                   </th>
                   <th
                     scope="col"
@@ -150,7 +150,7 @@ export default function OrderRoute() {
                           <dt className="sr-only">Quantity</dt>
                           <dd className="truncate sm:hidden">
                             <Text className="mt-1" size="fine">
-                              Qty: {lineItem.quantity}
+                              Cantidad: {lineItem.quantity}
                             </Text>
                           </dd>
                         </dl>
@@ -179,18 +179,18 @@ export default function OrderRoute() {
                       colSpan={3}
                       className="hidden pt-6 pl-6 pr-3 font-normal text-right sm:table-cell md:pl-0"
                     >
-                      <Text>Discounts</Text>
+                      <Text>Descuentos</Text>
                     </th>
                     <th
                       scope="row"
                       className="pt-6 pr-3 font-normal text-left sm:hidden"
                     >
-                      <Text>Discounts</Text>
+                      <Text>Descuentos</Text>
                     </th>
                     <td className="pt-6 pl-3 pr-4 font-medium text-right text-green-700 md:pr-3">
                       {discountPercentage ? (
                         <span className="text-sm">
-                          -{discountPercentage}% OFF
+                          -{discountPercentage}% DE DESCUENTO
                         </span>
                       ) : (
                         discountValue && <Money data={discountValue} />
@@ -222,13 +222,13 @@ export default function OrderRoute() {
                     colSpan={3}
                     className="hidden pt-4 pl-6 pr-3 font-normal text-right sm:table-cell md:pl-0"
                   >
-                    Tax
+                    Impuestos
                   </th>
                   <th
                     scope="row"
                     className="pt-4 pr-3 font-normal text-left sm:hidden"
                   >
-                    <Text>Tax</Text>
+                    <Text>Impuestos</Text>
                   </th>
                   <td className="pt-4 pl-3 pr-4 text-right md:pr-3">
                     <Money data={order.totalTaxV2} />
@@ -256,7 +256,7 @@ export default function OrderRoute() {
             </table>
             <div className="sticky border-none top-nav md:my-8">
               <Heading size="copy" className="font-semibold" as="h3">
-                Shipping Address
+                Dirección de envío
               </Heading>
               {order?.shippingAddress ? (
                 <ul className="mt-6">
@@ -278,10 +278,10 @@ export default function OrderRoute() {
                   )}
                 </ul>
               ) : (
-                <p className="mt-3">No shipping address defined</p>
+                <p className="mt-3">No se ha definido una dirección de envío</p>
               )}
               <Heading size="copy" className="mt-8 font-semibold" as="h3">
-                Status
+                Estado
               </Heading>
               <div
                 className={clsx(

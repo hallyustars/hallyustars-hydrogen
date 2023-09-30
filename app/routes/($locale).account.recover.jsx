@@ -23,7 +23,7 @@ export const action = async ({request, context}) => {
 
   if (!email || typeof email !== 'string') {
     return badRequest({
-      formError: 'Please provide an email.',
+      formError: 'Por favor, proporciona un correo electrónico.',
     });
   }
 
@@ -35,13 +35,13 @@ export const action = async ({request, context}) => {
     return json({resetRequested: true});
   } catch (error) {
     return badRequest({
-      formError: 'Something went wrong. Please try again later.',
+      formError: 'Algo salió mal. Por favor, intenta de nuevo más tarde.',
     });
   }
 };
 
 export const meta = () => {
-  return [{title: 'Recover Password'}];
+  return [{title: 'Recuperar Contraseña'}];
 };
 
 export default function Recover() {
@@ -54,19 +54,18 @@ export default function Recover() {
       <div className="max-w-md w-full">
         {isSubmitted ? (
           <>
-            <h1 className="text-4xl">Request Sent.</h1>
+            <h1 className="text-4xl">Solicitud Enviada.</h1>
             <p className="mt-4">
-              If that email address is in our system, you will receive an email
-              with instructions about how to reset your password in a few
-              minutes.
+              Si esa dirección de correo electrónico está en nuestro sistema, recibirás un correo
+              con instrucciones sobre cómo restablecer tu contraseña en unos minutos.
             </p>
           </>
         ) : (
           <>
-            <h1 className="text-4xl">Forgot Password.</h1>
+            <h1 className="text-4xl">Olvidé mi Contraseña.</h1>
             <p className="mt-4">
-              Enter the email address associated with your account to receive a
-              link to reset your password.
+              Ingresa la dirección de correo electrónico asociada con tu cuenta para recibir un
+              enlace para restablecer tu contraseña.
             </p>
             {/* TODO: Add onSubmit to validate _before_ submission with native? */}
             <Form
@@ -89,15 +88,15 @@ export default function Recover() {
                   type="email"
                   autoComplete="email"
                   required
-                  placeholder="Email address"
-                  aria-label="Email address"
+                  placeholder="Dirección de correo electrónico"
+                  aria-label="Dirección de correo electrónico"
                   // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus
                   onBlur={(event) => {
                     setNativeEmailError(
                       event.currentTarget.value.length &&
                         !event.currentTarget.validity.valid
-                        ? 'Invalid email address'
+                        ? 'Dirección de correo electrónico inválida'
                         : null,
                     );
                   }}
@@ -113,14 +112,14 @@ export default function Recover() {
                   className="bg-primary text-contrast rounded py-2 px-4 focus:shadow-outline block w-full"
                   type="submit"
                 >
-                  Request Reset Link
+                  Solicitar Enlace de Restablecimiento
                 </button>
               </div>
               <div className="flex items-center mt-8 border-t border-gray-300">
                 <p className="align-baseline text-sm mt-6">
                   Return to &nbsp;
                   <Link className="inline underline" to="/account/login">
-                    Login
+                    Iniciar Sesión
                   </Link>
                 </p>
               </div>

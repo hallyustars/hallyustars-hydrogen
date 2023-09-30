@@ -4,12 +4,12 @@ import {Dialog, Transition} from '@headlessui/react';
 import {Heading, IconClose} from '~/components';
 
 /**
- * Drawer component that opens on user click.
- * @param heading - string. Shown at the top of the drawer.
- * @param open - boolean state. if true opens the drawer.
- * @param onClose - function should set the open state.
- * @param openFrom - right, left
- * @param children - react children node.
+ * Componente Drawer que se abre al hacer clic en el usuario.
+ * @param heading - string. Se muestra en la parte superior del cajón.
+ * @param open - estado booleano. si es verdadero, abre el cajón.
+ * @param onClose - la función debe establecer el estado abierto.
+ * @param openFrom - derecha, izquierda
+ * @param children - nodo de niños de reacción.
  */
 export function Drawer({heading, open, onClose, openFrom = 'right', children}) {
   const offScreen = {
@@ -67,7 +67,7 @@ export function Drawer({heading, open, onClose, openFrom = 'right', children}) {
                       onClick={onClose}
                       data-test="close-cart"
                     >
-                      <IconClose aria-label="Close panel" />
+                      <IconClose aria-label="Cerrar" />
                     </button>
                   </header>
                   {children}
@@ -81,7 +81,7 @@ export function Drawer({heading, open, onClose, openFrom = 'right', children}) {
   );
 }
 
-/* Use for associating arialabelledby with the title*/
+/* Se utiliza para asociar arialabelledby con el título */
 Drawer.Title = Dialog.Title;
 
 export function useDrawer(openDefault = false) {

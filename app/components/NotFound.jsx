@@ -3,8 +3,8 @@ import {FeaturedSection} from './FeaturedSection';
 import {PageHeader, Text} from './Text';
 
 export function NotFound({type = 'page'}) {
-  const heading = `We’ve lost this ${type}`;
-  const description = `We couldn’t find the ${type} you’re looking for. Try checking the URL or heading back to the home page.`;
+  const heading = `Hemos perdido ${type === 'page' ? 'esta' : 'este'} ${type}`;
+  const description = `No pudimos encontrar la ${type} que estás buscando. Intenta revisar la URL o volver a la página de inicio.`;
 
   return (
     <>
@@ -13,7 +13,7 @@ export function NotFound({type = 'page'}) {
           {description}
         </Text>
         <Button width="auto" variant="secondary" to={'/'}>
-          Take me to the home page
+          Llévame a la página de inicio
         </Button>
       </PageHeader>
       <FeaturedSection />

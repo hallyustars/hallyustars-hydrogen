@@ -6,18 +6,18 @@ import {Heading, ProductCard, Skeleton, Text} from '~/components';
 import {usePrefixPathWithLocale} from '~/lib/utils';
 
 /**
- * Display a grid of products and a heading based on some options.
- * This components uses the storefront API products query
- * @param count number of products to display
- * @param query a filtering query
- * @param reverse wether to reverse the product results
- * @param sortKey Sort the underlying list by the given key.
+ * Muestra una cuadrícula de productos y un encabezado basado en algunas opciones.
+ * Este componente utiliza la consulta de productos de la API de la tienda.
+ * @param count número de productos a mostrar
+ * @param query una consulta de filtrado
+ * @param reverse si se deben invertir los resultados de los productos
+ * @param sortKey ordena la lista subyacente por la clave dada.
  * @see query https://shopify.dev/api/storefront/2023-07/queries/products
  * @see filters https://shopify.dev/api/storefront/2023-07/queries/products#argument-products-query
  */
 export function FeaturedProducts({
   count = 4,
-  heading = 'Shop Best Sellers',
+  heading = 'Compre los más vendidos',
   layout = 'drawer',
   onClose,
   query,
@@ -63,7 +63,7 @@ export function FeaturedProducts({
 }
 
 /**
- * Render the FeaturedProducts content based on the fetcher's state. "loading", "empty" or "products"
+ * Renderiza el contenido de FeaturedProducts basado en el estado del fetcher. "loading", "empty" o "products"
  */
 function FeatureProductsContent({count = 4, onClick, products}) {
   const id = useId();
@@ -82,7 +82,7 @@ function FeatureProductsContent({count = 4, onClick, products}) {
   }
 
   if (products?.length === 0) {
-    return <Text format>No products found.</Text>;
+    return <Text format>No se encontraron productos.</Text>;
   }
 
   return (
@@ -98,3 +98,4 @@ function FeatureProductsContent({count = 4, onClick, products}) {
     </>
   );
 }
+

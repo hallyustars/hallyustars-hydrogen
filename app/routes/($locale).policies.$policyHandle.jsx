@@ -9,7 +9,7 @@ import {seoPayload} from '~/lib/seo.server';
 export const headers = routeHeaders;
 
 export async function loader({request, params, context}) {
-  invariant(params.policyHandle, 'Missing policy handle');
+  invariant(params.policyHandle, 'Falta el parámetro policyHandle');
 
   const policyName = params.policyHandle.replace(/-([a-z])/g, (_, m1) =>
     m1.toUpperCase(),
@@ -26,7 +26,7 @@ export async function loader({request, params, context}) {
     },
   });
 
-  invariant(data, 'No data returned from Shopify API');
+  invariant(data, 'No existe información de la política');
   const policy = data.shop?.[policyName];
 
   if (!policy) {
@@ -57,7 +57,7 @@ export default function Policies() {
             variant="inline"
             to={'/policies'}
           >
-            &larr; Back to Policies
+            &larr; Volver a Políticas
           </Button>
         </PageHeader>
         <div className="flex-grow w-full md:w-7/12">

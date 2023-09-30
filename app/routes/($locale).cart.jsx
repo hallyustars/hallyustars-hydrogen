@@ -15,7 +15,7 @@ export async function action({request, context}) {
   ]);
 
   const {action, inputs} = CartForm.getFormInput(formData);
-  invariant(action, 'No cartAction defined');
+  invariant(action, 'No se ha definido la acción del formulario cartAction');
 
   let status = 200;
   let result;
@@ -48,7 +48,7 @@ export async function action({request, context}) {
       });
       break;
     default:
-      invariant(false, `${action} cart action is not defined`);
+      invariant(false, `${action} no es una acción válida`);
   }
 
   /**

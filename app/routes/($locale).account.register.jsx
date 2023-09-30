@@ -33,7 +33,7 @@ export const action = async ({request, context, params}) => {
     typeof password !== 'string'
   ) {
     return badRequest({
-      formError: 'Please provide both an email and a password.',
+      formError: 'Por favor, proporciona un correo electrónico y una contraseña.',
     });
   }
 
@@ -62,7 +62,7 @@ export const action = async ({request, context, params}) => {
   } catch (error) {
     if (storefront.isApiError(error)) {
       return badRequest({
-        formError: 'Something went wrong. Please try again later.',
+        formError: 'Algo salió mal. Por favor, intenta de nuevo más tarde.',
       });
     }
 
@@ -72,13 +72,13 @@ export const action = async ({request, context, params}) => {
      */
     return badRequest({
       formError:
-        'Sorry. We could not create an account with this email. User might already exist, try to login instead.',
+        'Lo sentimos. No pudimos crear una cuenta con este correo electrónico. Es posible que el usuario ya exista, intenta iniciar sesión.',
     });
   }
 };
 
 export const meta = () => {
-  return [{title: 'Register'}];
+  return [{title: 'Crear Cuenta'}];
 };
 
 export default function Register() {
@@ -89,7 +89,7 @@ export default function Register() {
   return (
     <div className="flex justify-center my-24 px-4">
       <div className="max-w-md w-full">
-        <h1 className="text-4xl">Create an Account.</h1>
+        <h1 className="text-4xl">Crear una Cuenta.</h1>
         {/* TODO: Add onSubmit to validate _before_ submission with native? */}
         <Form
           method="post"
@@ -109,15 +109,15 @@ export default function Register() {
               type="email"
               autoComplete="email"
               required
-              placeholder="Email address"
-              aria-label="Email address"
+              placeholder="Dirección de correo electrónico"
+              aria-label="Dirección de correo electrónico"
               // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               onBlur={(event) => {
                 setNativeEmailError(
                   event.currentTarget.value.length &&
                     !event.currentTarget.validity.valid
-                    ? 'Invalid email address'
+                    ? 'Dirección de correo electrónico inválida'
                     : null,
                 );
               }}
@@ -133,8 +133,8 @@ export default function Register() {
               name="password"
               type="password"
               autoComplete="current-password"
-              placeholder="Password"
-              aria-label="Password"
+              placeholder="Contraseña"
+              aria-label="Contraseña"
               minLength={8}
               required
               // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -148,8 +148,8 @@ export default function Register() {
                 } else {
                   setNativePasswordError(
                     event.currentTarget.validity.valueMissing
-                      ? 'Please enter a password'
-                      : 'Passwords must be at least 8 characters',
+                      ? 'Por favor, ingresa una contraseña'
+                      : 'Las contraseñas deben tener al menos 8 caracteres',
                   );
                 }
               }}
@@ -167,14 +167,14 @@ export default function Register() {
               type="submit"
               disabled={!!(nativePasswordError || nativeEmailError)}
             >
-              Create Account
+              Crear Cuenta
             </button>
           </div>
           <div className="flex items-center mt-8 border-t border-gray-300">
             <p className="align-baseline text-sm mt-6">
               Already have an account? &nbsp;
               <Link className="inline underline" to="/account/login">
-                Sign in
+                Iniciar Sesión
               </Link>
             </p>
           </div>

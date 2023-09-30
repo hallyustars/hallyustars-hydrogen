@@ -5,7 +5,7 @@ const mockProducts = {
 };
 
 export function ProductSwimlane({
-  title = 'Featured Products',
+  title = 'Productos destacados',
   products = mockProducts,
   count = 12,
   ...props

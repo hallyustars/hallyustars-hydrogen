@@ -141,7 +141,7 @@ export default function Product() {
               </div>
               <Suspense fallback={<ProductForm variants={[]} />}>
                 <Await
-                  errorElement="There was a problem loading related products"
+                  errorElement="Hubo un problema al cargar los productos relacionados"
                   resolve={variants}
                 >
                   {(resp) => (
@@ -154,20 +154,20 @@ export default function Product() {
               <div className="grid gap-4 py-4">
                 {descriptionHtml && (
                   <ProductDetail
-                    title="Product Details"
+                    title="Detalles del producto"
                     content={descriptionHtml}
                   />
                 )}
                 {shippingPolicy?.body && (
                   <ProductDetail
-                    title="Shipping"
+                    title="Envío"
                     content={getExcerpt(shippingPolicy.body)}
                     learnMore={`/policies/${shippingPolicy.handle}`}
                   />
                 )}
                 {refundPolicy?.body && (
                   <ProductDetail
-                    title="Returns"
+                    title="Devoluciones"
                     content={getExcerpt(refundPolicy.body)}
                     learnMore={`/policies/${refundPolicy.handle}`}
                   />
@@ -179,11 +179,11 @@ export default function Product() {
       </Section>
       <Suspense fallback={<Skeleton className="h-32" />}>
         <Await
-          errorElement="There was a problem loading related products"
+          errorElement="Hubo un problema cargando los productos relacionados"
           resolve={recommended}
         >
           {(products) => (
-            <ProductSwimlane title="Related Products" products={products} />
+            <ProductSwimlane title="Productos Relacionados" products={products} />
           )}
         </Await>
       </Suspense>
@@ -398,7 +398,7 @@ function ProductDetail({title, content, learnMore}) {
                   className="pb-px border-b border-primary/30 text-primary/50"
                   to={learnMore}
                 >
-                  Learn more
+                  Ver más
                 </Link>
               </div>
             )}

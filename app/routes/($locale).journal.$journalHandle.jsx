@@ -20,7 +20,7 @@ export const links = () => {
 export async function loader({request, params, context}) {
   const {language, country} = context.storefront.i18n;
 
-  invariant(params.journalHandle, 'Missing journal handle');
+  invariant(params.journalHandle, 'Falte el parámetro journalHandle');
 
   const {blog} = await context.storefront.query(ARTICLE_QUERY, {
     variables: {

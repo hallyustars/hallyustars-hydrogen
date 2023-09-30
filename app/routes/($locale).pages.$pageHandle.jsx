@@ -9,7 +9,7 @@ import {seoPayload} from '~/lib/seo.server';
 export const headers = routeHeaders;
 
 export async function loader({request, params, context}) {
-  invariant(params.pageHandle, 'Missing page handle');
+  invariant(params.pageHandle, 'Falta el parámetro pageHandle');
 
   const {page} = await context.storefront.query(PAGE_QUERY, {
     variables: {

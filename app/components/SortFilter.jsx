@@ -143,198 +143,198 @@ function AppliedFilters({filters = []}) {
               to={getAppliedFilterLink(filter, params, location)}
               className="flex px-2 border rounded-full gap"
               key={`${filter.label}-${filter.urlParam}`}
-            >
-              <span className="flex-grow">{filter.label}</span>
-              <span>
-                <IconXMark />
-              </span>
-            </Link>
-          );
-        })}
-      </div>
-    </>
-  );
-}
+                          >
+                            <span className="flex-grow">{filter.label}</span>
+                            <span>
+                              <IconXMark />
+                            </span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </>
+                );
+              }
 
-function getAppliedFilterLink(filter, params, location) {
-  const paramsClone = new URLSearchParams(params);
-  if (filter.urlParam.key === 'variantOption') {
-    const variantOptions = paramsClone.getAll('variantOption');
-    const filteredVariantOptions = variantOptions.filter(
-      (options) => !options.includes(filter.urlParam.value),
-    );
-    paramsClone.delete(filter.urlParam.key);
-    for (const filteredVariantOption of filteredVariantOptions) {
-      paramsClone.append(filter.urlParam.key, filteredVariantOption);
-    }
-  } else {
-    paramsClone.delete(filter.urlParam.key);
-  }
-  return `${location.pathname}?${paramsClone.toString()}`;
-}
+              function getAppliedFilterLink(filter, params, location) {
+                const paramsClone = new URLSearchParams(params);
+                if (filter.urlParam.key === 'variantOption') {
+                  const variantOptions = paramsClone.getAll('variantOption');
+                  const filteredVariantOptions = variantOptions.filter(
+                    (options) => !options.includes(filter.urlParam.value),
+                  );
+                  paramsClone.delete(filter.urlParam.key);
+                  for (const filteredVariantOption of filteredVariantOptions) {
+                    paramsClone.append(filter.urlParam.key, filteredVariantOption);
+                  }
+                } else {
+                  paramsClone.delete(filter.urlParam.key);
+                }
+                return `${location.pathname}?${paramsClone.toString()}`;
+              }
 
-function getSortLink(sort, params, location) {
-  params.set('sort', sort);
-  return `${location.pathname}?${params.toString()}`;
-}
+              function getSortLink(sort, params, location) {
+                params.set('sort', sort);
+                return `${location.pathname}?${params.toString()}`;
+              }
 
-function getFilterLink(filter, rawInput, params, location) {
-  const paramsClone = new URLSearchParams(params);
-  const newParams = filterInputToParams(filter.type, rawInput, paramsClone);
-  return `${location.pathname}?${newParams.toString()}`;
-}
+              function getFilterLink(filter, rawInput, params, location) {
+                const paramsClone = new URLSearchParams(params);
+                const newParams = filterInputToParams(filter.type, rawInput, paramsClone);
+                return `${location.pathname}?${newParams.toString()}`;
+              }
 
-const PRICE_RANGE_FILTER_DEBOUNCE = 500;
+              const PRICE_RANGE_FILTER_DEBOUNCE = 500;
 
-function PriceRangeFilter({max, min}) {
-  const location = useLocation();
-  const params = useMemo(
-    () => new URLSearchParams(location.search),
-    [location.search],
-  );
-  const navigate = useNavigate();
+              function PriceRangeFilter({max, min}) {
+                const location = useLocation();
+                const params = useMemo(
+                  () => new URLSearchParams(location.search),
+                  [location.search],
+                );
+                const navigate = useNavigate();
 
-  const [minPrice, setMinPrice] = useState(min ? String(min) : '');
-  const [maxPrice, setMaxPrice] = useState(max ? String(max) : '');
+                const [minPrice, setMinPrice] = useState(min ? String(min) : '');
+                const [maxPrice, setMaxPrice] = useState(max ? String(max) : '');
 
-  useDebounce(
-    () => {
-      if (
-        (minPrice === '' || minPrice === String(min)) &&
-        (maxPrice === '' || maxPrice === String(max))
-      )
-        return;
+                useDebounce(
+                  () => {
+                    if (
+                      (minPrice === '' || minPrice === String(min)) &&
+                      (maxPrice === '' || maxPrice === String(max))
+                    )
+                      return;
 
-      const price = {};
-      if (minPrice !== '') price.min = minPrice;
-      if (maxPrice !== '') price.max = maxPrice;
+                    const price = {};
+                    if (minPrice !== '') price.min = minPrice;
+                    if (maxPrice !== '') price.max = maxPrice;
 
-      const newParams = filterInputToParams('PRICE_RANGE', {price}, params);
-      navigate(`${location.pathname}?${newParams.toString()}`);
-    },
-    PRICE_RANGE_FILTER_DEBOUNCE,
-    [minPrice, maxPrice],
-  );
+                    const newParams = filterInputToParams('PRICE_RANGE', {price}, params);
+                    navigate(`${location.pathname}?${newParams.toString()}`);
+                  },
+                  PRICE_RANGE_FILTER_DEBOUNCE,
+                  [minPrice, maxPrice],
+                );
 
-  const onChangeMax = (event) => {
-    const newMaxPrice = event.target.value;
-    setMaxPrice(newMaxPrice);
-  };
+                const onChangeMax = (event) => {
+                  const newMaxPrice = event.target.value;
+                  setMaxPrice(newMaxPrice);
+                };
 
-  const onChangeMin = (event) => {
-    const newMinPrice = event.target.value;
-    setMinPrice(newMinPrice);
-  };
+                const onChangeMin = (event) => {
+                  const newMinPrice = event.target.value;
+                  setMinPrice(newMinPrice);
+                };
 
-  return (
-    <div className="flex flex-col">
-      <label className="mb-4">
-        <span>from</span>
-        <input
-          name="maxPrice"
-          className="text-black"
-          type="text"
-          defaultValue={min}
-          placeholder={'$'}
-          onChange={onChangeMin}
-        />
-      </label>
-      <label>
-        <span>to</span>
-        <input
-          name="minPrice"
-          className="text-black"
-          type="number"
-          defaultValue={max}
-          placeholder={'$'}
-          onChange={onChangeMax}
-        />
-      </label>
-    </div>
-  );
-}
+                return (
+                  <div className="flex flex-col">
+                    <label className="mb-4">
+                      <span>desde</span>
+                      <input
+                        name="maxPrice"
+                        className="text-black"
+                        type="text"
+                        defaultValue={min}
+                        placeholder={'$'}
+                        onChange={onChangeMin}
+                      />
+                    </label>
+                    <label>
+                      <span>hasta</span>
+                      <input
+                        name="minPrice"
+                        className="text-black"
+                        type="number"
+                        defaultValue={max}
+                        placeholder={'$'}
+                        onChange={onChangeMax}
+                      />
+                    </label>
+                  </div>
+                );
+              }
 
-function filterInputToParams(type, rawInput, params) {
-  const input = typeof rawInput === 'string' ? JSON.parse(rawInput) : rawInput;
-  switch (type) {
-    case 'PRICE_RANGE':
-      if (input.price.min) params.set('minPrice', input.price.min);
-      if (input.price.max) params.set('maxPrice', input.price.max);
-      break;
-    case 'LIST':
-      Object.entries(input).forEach(([key, value]) => {
-        if (typeof value === 'string') {
-          params.set(key, value);
-        } else if (typeof value === 'boolean') {
-          params.set(key, value.toString());
-        } else {
-          const {name, value: val} = value;
-          const allVariants = params.getAll(`variantOption`);
-          const newVariant = `${name}:${val}`;
-          if (!allVariants.includes(newVariant)) {
-            params.append('variantOption', newVariant);
-          }
-        }
-      });
-      break;
-  }
+              function filterInputToParams(type, rawInput, params) {
+                const input = typeof rawInput === 'string' ? JSON.parse(rawInput) : rawInput;
+                switch (type) {
+                  case 'PRICE_RANGE':
+                    if (input.price.min) params.set('minPrice', input.price.min);
+                    if (input.price.max) params.set('maxPrice', input.price.max);
+                    break;
+                  case 'LIST':
+                    Object.entries(input).forEach(([key, value]) => {
+                      if (typeof value === 'string') {
+                        params.set(key, value);
+                      } else if (typeof value === 'boolean') {
+                        params.set(key, value.toString());
+                      } else {
+                        const {name, value: val} = value;
+                        const allVariants = params.getAll(`variantOption`);
+                        const newVariant = `${name}:${val}`;
+                        if (!allVariants.includes(newVariant)) {
+                          params.append('variantOption', newVariant);
+                        }
+                      }
+                    });
+                    break;
+                }
 
-  return params;
-}
+                return params;
+              }
 
-export default function SortMenu() {
-  const items = [
-    {label: 'Featured', key: 'featured'},
-    {
-      label: 'Price: Low - High',
-      key: 'price-low-high',
-    },
-    {
-      label: 'Price: High - Low',
-      key: 'price-high-low',
-    },
-    {
-      label: 'Best Selling',
-      key: 'best-selling',
-    },
-    {
-      label: 'Newest',
-      key: 'newest',
-    },
-  ];
-  const [params] = useSearchParams();
-  const location = useLocation();
-  const activeItem = items.find((item) => item.key === params.get('sort'));
+              export default function SortMenu() {
+                const items = [
+                  {label: 'Destacados', key: 'featured'},
+                  {
+                    label: 'Precio: Bajo - Alto',
+                    key: 'price-low-high',
+                  },
+                  {
+                    label: 'Precio: Alto - Bajo',
+                    key: 'price-high-low',
+                  },
+                  {
+                    label: 'Más vendidos',
+                    key: 'best-selling',
+                  },
+                  {
+                    label: 'Más nuevos',
+                    key: 'newest',
+                  },
+                ];
+                const [params] = useSearchParams();
+                const location = useLocation();
+                const activeItem = items.find((item) => item.key === params.get('sort'));
 
-  return (
-    <Menu as="div" className="relative z-40">
-      <Menu.Button className="flex items-center">
-        <span className="px-2">
-          <span className="px-2 font-medium">Sort by:</span>
-          <span>{(activeItem || items[0]).label}</span>
-        </span>
-        <IconCaret />
-      </Menu.Button>
+                return (
+                  <Menu as="div" className="relative z-40">
+                    <Menu.Button className="flex items-center">
+                      <span className="px-2">
+                        <span className="px-2 font-medium">Ordenar por:</span>
+                        <span>{(activeItem || items[0]).label}</span>
+                      </span>
+                      <IconCaret />
+                    </Menu.Button>
 
-      <Menu.Items
-        as="nav"
-        className="absolute right-0 flex flex-col p-4 text-right rounded-sm bg-contrast"
-      >
-        {items.map((item) => (
-          <Menu.Item key={item.label}>
-            {() => (
-              <Link
-                className={`block text-sm pb-2 px-3 ${
-                  activeItem?.key === item.key ? 'font-bold' : 'font-normal'
-                }`}
-                to={getSortLink(item.key, params, location)}
-              >
-                {item.label}
-              </Link>
-            )}
-          </Menu.Item>
-        ))}
-      </Menu.Items>
-    </Menu>
-  );
-}
+                    <Menu.Items
+                      as="nav"
+                      className="absolute right-0 flex flex-col p-4 text-right rounded-sm bg-contrast"
+                    >
+                      {items.map((item) => (
+                        <Menu.Item key={item.label}>
+                          {() => (
+                            <Link
+                              className={`block text-sm pb-2 px-3 ${
+                                activeItem?.key === item.key ? 'font-bold' : 'font-normal'
+                              }`}
+                              to={getSortLink(item.key, params, location)}
+                            >
+                              {item.label}
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      ))}
+                    </Menu.Items>
+                  </Menu>
+                );
+              }

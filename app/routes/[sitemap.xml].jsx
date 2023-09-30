@@ -11,7 +11,7 @@ export async function loader({request, context: {storefront}}) {
     },
   });
 
-  invariant(data, 'Sitemap data is missing');
+  invariant(data, 'No existen datos para generar el sitemap');
 
   return new Response(
     shopSitemap({data, baseUrl: new URL(request.url).origin}),

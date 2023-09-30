@@ -22,7 +22,7 @@ export const loader = async ({request, context: {storefront}}) => {
   });
 
   if (!blog?.articles) {
-    throw new Response('Not found', {status: 404});
+    throw new Response('No encontramos artículos', {status: 404});
   }
 
   const articles = flattenConnection(blog.articles).map((article) => {

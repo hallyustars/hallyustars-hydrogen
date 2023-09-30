@@ -32,7 +32,7 @@ export async function loader({params, request, context}) {
   });
   const {collectionHandle} = params;
 
-  invariant(collectionHandle, 'Missing collectionHandle param');
+  invariant(collectionHandle, 'Falta el parámetro collectionHandle');
 
   const searchParams = new URL(request.url).searchParams;
   const knownFilters = ['productVendor', 'productType'];
@@ -46,7 +46,7 @@ export async function loader({params, request, context}) {
     if (available === key) {
       filters.push({available: value === 'true'});
       appliedFilters.push({
-        label: value === 'true' ? 'In stock' : 'Out of stock',
+        label: value === 'true' ? 'En stock' : 'Agotado',
         urlParam: {
           key: available,
           value,
@@ -157,7 +157,7 @@ export default function Collection() {
               <>
                 <div className="flex items-center justify-center mb-6">
                   <Button as={PreviousLink} variant="secondary" width="full">
-                    {isLoading ? 'Loading...' : 'Load previous'}
+                    {isLoading ? 'Cargando...' : 'Cargar productos anteriores'}
                   </Button>
                 </div>
                 <ProductsLoadedOnScroll
@@ -172,7 +172,7 @@ export default function Collection() {
                   ref={ref}
                 >
                   <Button as={NextLink} variant="secondary" width="full">
-                    {isLoading ? 'Loading...' : 'Load more products'}
+                    {isLoading ? 'Cargando...' : 'Cargar productos siguientes'}
                   </Button>
                 </div>
               </>

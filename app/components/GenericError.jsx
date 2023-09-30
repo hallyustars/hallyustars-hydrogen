@@ -3,10 +3,10 @@ import {FeaturedSection} from './FeaturedSection';
 import {PageHeader, Text} from './Text';
 
 export function GenericError({error}) {
-  const heading = `Something’s wrong here.`;
-  let description = `We found an error while loading this page.`;
+  const heading = `Algo anda mal aquí.`;
+  let description = `Encontramos un error al cargar esta página.`;
 
-  // TODO hide error in prod?
+  // TODO ocultar error en producción?
   if (error) {
     description += `\n${error.message}`;
     // eslint-disable-next-line no-console
@@ -34,7 +34,7 @@ export function GenericError({error}) {
           />
         )}
         <Button width="auto" variant="secondary" to={'/'}>
-          Take me to the home page
+          Llévame a la página de inicio
         </Button>
       </PageHeader>
       <FeaturedSection />

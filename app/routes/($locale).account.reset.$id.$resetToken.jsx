@@ -18,7 +18,7 @@ export const action = async ({
     typeof resetToken !== 'string'
   ) {
     return badRequest({
-      formError: 'Wrong token. Please try to reset your password again.',
+      formError: 'Token invalido, por favor intenta de nuevo.',
     });
   }
 
@@ -35,7 +35,7 @@ export const action = async ({
     password !== passwordConfirm
   ) {
     return badRequest({
-      formError: 'Please provide matching passwords',
+      formError: 'Por favor, proporciona contraseñas válidas.',
     });
   }
 
@@ -71,7 +71,7 @@ export const action = async ({
   } catch (error) {
     if (storefront.isApiError(error)) {
       return badRequest({
-        formError: 'Something went wrong. Please try again later.',
+        formError: 'Algo salio mal. Por favor, intenta de nuevo más tarde.',
       });
     }
 
@@ -80,13 +80,13 @@ export const action = async ({
      * Let's make one up.
      */
     return badRequest({
-      formError: 'Sorry. We could not update your password.',
+      formError: 'Lo Sentimos. No pudimos restablecer tu contraseña.',
     });
   }
 };
 
 export const meta = () => {
-  return [{title: 'Reset Password'}];
+  return [{title: 'Restablecer Contraseña'}];
 };
 
 export default function Reset() {
@@ -105,7 +105,7 @@ export default function Reset() {
       passwordConfirmInput.current.value.length &&
       passwordConfirmInput.current.value !== passwordInput.current?.value
     ) {
-      setNativePasswordConfirmError('The two passwords entered did not match.');
+      setNativePasswordConfirmError('Las contraseñas no coinciden');
     } else if (
       passwordConfirmInput.current.validity.valid ||
       !passwordConfirmInput.current.value.length
@@ -114,8 +114,8 @@ export default function Reset() {
     } else {
       setNativePasswordConfirmError(
         passwordConfirmInput.current.validity.valueMissing
-          ? 'Please re-enter the password'
-          : 'Passwords must be at least 8 characters',
+          ? 'Profavor, ingresa una contraseña'
+          : 'Las contraseñas deben tener al menos 8 caracteres',
       );
     }
   };
@@ -123,8 +123,8 @@ export default function Reset() {
   return (
     <div className="flex justify-center my-24 px-4">
       <div className="max-w-md w-full">
-        <h1 className="text-4xl">Reset Password.</h1>
-        <p className="mt-4">Enter a new password for your account.</p>
+        <h1 className="text-4xl">Restablecer Contraseña.</h1>
+        <p className="mt-4">Ingresa tu nueva contraseña.</p>
         {/* TODO: Add onSubmit to validate _before_ submission with native? */}
         <Form
           method="post"
@@ -144,8 +144,8 @@ export default function Reset() {
               name="password"
               type="password"
               autoComplete="current-password"
-              placeholder="Password"
-              aria-label="Password"
+              placeholder="Contraseña"
+              aria-label="Contraseña"
               minLength={8}
               required
               // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -160,8 +160,8 @@ export default function Reset() {
                 } else {
                   setNativePasswordError(
                     event.currentTarget.validity.valueMissing
-                      ? 'Please enter a password'
-                      : 'Passwords must be at least 8 characters',
+                      ? 'Profavor, ingresa una contraseña'
+                      : 'Las contraseñas deben tener al menos 8 caracteres',
                   );
                 }
               }}
@@ -183,8 +183,8 @@ export default function Reset() {
               name="passwordConfirm"
               type="password"
               autoComplete="current-password"
-              placeholder="Re-enter password"
-              aria-label="Re-enter password"
+              placeholder="Ingresa tu contraseña nuevamente"
+              aria-label="Ingresa tu contraseña nuevamente"
               minLength={8}
               required
               // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -203,7 +203,7 @@ export default function Reset() {
               className="bg-primary text-contrast rounded py-2 px-4 focus:shadow-outline block w-full"
               type="submit"
             >
-              Save
+              Restablecer Contraseña
             </button>
           </div>
         </Form>

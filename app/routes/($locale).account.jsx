@@ -26,7 +26,6 @@ import {ORDER_CARD_FRAGMENT} from '~/components/OrderCard';
 
 import {getFeaturedData} from './($locale).featured-products';
 import {doLogout} from './($locale).account.logout';
-
 export const headers = routeHeaders;
 
 export async function loader({request, context, params}) {
@@ -41,7 +40,7 @@ export async function loader({request, context, params}) {
     if (isAccountPage) {
       return redirect(loginPath);
     }
-    // pass through to public routes
+    // pasar a las rutas públicas
     return json({isAuthenticated: false});
   }
 
@@ -49,9 +48,9 @@ export async function loader({request, context, params}) {
 
   const heading = customer
     ? customer.firstName
-      ? `Welcome, ${customer.firstName}.`
-      : `Welcome to your account.`
-    : 'Account Details';
+      ? `Bienvenido, ${customer.firstName}.`
+      : `Bienvenido a tu cuenta.`
+    : 'Detalles de la cuenta';
 
   return defer(
     {
@@ -73,17 +72,17 @@ export default function Authenticated() {
   const outlet = useOutlet();
   const matches = useMatches();
 
-  // routes that export handle { renderInModal: true }
+  // rutas que exportan handle { renderInModal: true }
   const renderOutletInModal = matches.some((match) => {
     return match?.handle?.renderInModal;
   });
 
-  // Public routes
+  // Rutas públicas
   if (!data.isAuthenticated) {
     return <Outlet />;
   }
 
-  // Authenticated routes
+  // Rutas autenticadas
   if (outlet) {
     if (renderOutletInModal) {
       return (
@@ -111,7 +110,7 @@ function Account({customer, heading, featuredData}) {
       <PageHeader heading={heading}>
         <Form method="post" action={usePrefixPathWithLocale('/account/logout')}>
           <button type="submit" className="text-primary/50">
-            Sign out
+            Cerrar sesión
           </button>
         </Form>
       </PageHeader>
@@ -122,12 +121,12 @@ function Account({customer, heading, featuredData}) {
         <Suspense>
           <Await
             resolve={featuredData}
-            errorElement="There was a problem loading featured products."
+            errorElement="Hubo un problema al cargar los productos destacados."
           >
             {(data) => (
               <>
                 <FeaturedCollections
-                  title="Popular Collections"
+                  title="Colecciones populares"
                   collections={data.featuredCollections}
                 />
                 <ProductSwimlane products={data.featuredProducts} />
@@ -144,7 +143,7 @@ function AccountOrderHistory({orders}) {
   return (
     <div className="mt-6">
       <div className="grid w-full gap-4 p-4 py-6 md:gap-8 md:p-8 lg:p-12">
-        <h2 className="font-bold text-lead">Order History</h2>
+        <h2 className="font-bold text-lead">Historial de pedidos</h2>
         {orders?.length ? <Orders orders={orders} /> : <EmptyOrders />}
       </div>
     </div>
@@ -155,7 +154,7 @@ function EmptyOrders() {
   return (
     <div>
       <Text className="mb-1" size="fine" width="narrow" as="p">
-        You haven&apos;t placed any orders yet.
+        Aún no has realizado ningún pedido.
       </Text>
       <div className="w-48">
         <Button
@@ -163,7 +162,7 @@ function EmptyOrders() {
           variant="secondary"
           to={usePrefixPathWithLocale('/')}
         >
-          Start Shopping
+          Comenzar a comprar
         </Button>
       </div>
     </div>
@@ -246,7 +245,7 @@ export async function getCustomer(context, customerAccessToken) {
   });
 
   /**
-   * If the customer failed to load, we assume their access token is invalid.
+   * Si no se pudo cargar el cliente, asumimos que su token de acceso es inválido.
    */
   if (!data || !data.customer) {
     throw await doLogout(context);
