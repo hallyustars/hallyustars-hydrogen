@@ -1,25 +1,26 @@
-import {useParams, Form, Await, useMatches} from '@remix-run/react';
+import {useParams, Form, Await, useMatches, useLocation} from '@remix-run/react';
 import {useWindowScroll} from 'react-use';
 import {Disclosure} from '@headlessui/react';
-import {Suspense, useEffect, useMemo} from 'react';
+import {Suspense, useEffect, useMemo , useState} from 'react';
 import { CartForm,Image } from '@shopify/hydrogen';
 import {
-  Drawer,
-  useDrawer,
   Text,
-  Input,
-  IconLogin,
-  IconAccount,
-  IconBag,
-  IconSearch,
-  Heading,
-  IconMenu,
-  IconCaret,
-  Section,
-  CountrySelector,
   Cart,
-  CartLoading,
   Link,
+  Input,
+  Drawer,
+  Heading,
+  Section,
+  useDrawer,
+  CartLoading,
+  IconBag,
+  IconMenu,
+  IconStar,
+  IconLogin,
+  IconCaret,
+  IconSearch,
+  IconAccount,
+  IconNewsPaper,
 } from '~/components';
 import {useIsHomePath} from '~/lib/utils';
 import {useIsHydrated} from '~/hooks/useIsHydrated';
@@ -117,26 +118,44 @@ export function MenuDrawer({isOpen, onClose, menu}) {
   );
 }
 
-function MenuMobileNav({menu, onClose}) {
+function MenuMobileNav({ menu, onClose }) {
+  const location = useLocation();
+  const menuItemsConfig = [
+    {
+      icon: IconStar,
+      path: '/',
+    },
+    {
+      icon: IconNewsPaper,
+      path: '/products',
+    },
+  ];
+
   return (
     <nav className="grid gap-4 p-6 sm:gap-6 sm:px-12 sm:py-8">
       {/* Top level menu items */}
-      {(menu?.items || []).map((item) => (
-        <span key={item.id} className="block">
-          <Link
-            to={item.to}
-            target={item.target}
-            onClick={onClose}
-            className={({isActive}) =>
-              isActive ? 'pb-1 border-b -mb-px' : 'pb-1'
-            }
-          >
-            <Text as="span" size="copy">
-              {item.title}
-            </Text>
-          </Link>
-        </span>
-      ))}
+      {(menu?.items || []).map((item, index) => {
+        const IconComponent = menuItemsConfig[index]?.icon;
+          const itemColor = location.pathname === menuItemsConfig[index]?.path ?
+          'dark:text-fuchsia-300 text-fuchsia-600' : 'dark:text-primary';
+        return (
+          <span key={item.id} className="block">
+            <Link
+              to={item.to}
+              target={item.target}
+              onClick={onClose}
+              className={({ isActive }) =>
+                isActive ? 'pb-1 border-b -mb-px' : 'pb-1'
+              }
+            >
+              <Text as="span" size="copy" className="flex items-center gap-2">
+                {IconComponent && <IconComponent className={itemColor} />}
+                <label className={itemColor}>{item.title}</label>
+              </Text>
+            </Link>
+          </span>
+        )
+      })}
     </nav>
   );
 }
@@ -309,11 +328,7 @@ function Badge({openCart, dark, count}) {
       <>
         <IconBag className="text-primary" />
         <div
-          className={`${
-            dark
-              ? 'dark:text-primary bg-contrast text-contrast dark:bg-pink-300'
-              : 'text-contrast bg-contrast '
-          } absolute bottom-1 right-1 text-[0.625rem] font-medium subpixel-antialiased h-3 min-w-[0.75rem] flex items-center justify-center leading-none text-center rounded-full w-auto px-[0.125rem] pb-px bg-pink-300`}
+          className={`dark:text-primary bg-contrast text-contrast dark:bg-pink-400 text-contrast bg-contrast absolute bottom-1 right-1 text-[0.625rem] font-medium subpixel-antialiased h-3 min-w-[0.75rem] flex items-center justify-center leading-none text-center rounded-full w-auto px-[0.125rem] pb-px bg-pink-400`}
         >
           <span>{count || 0}</span>
         </div>

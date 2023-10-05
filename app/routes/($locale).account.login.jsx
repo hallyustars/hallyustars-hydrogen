@@ -1,7 +1,7 @@
 import {json, redirect} from '@shopify/remix-oxygen';
 import {Form, useActionData, useLoaderData} from '@remix-run/react';
 import {useState} from 'react';
-
+import { Button } from '~/components';
 import {getInputStyleClasses} from '~/lib/utils';
 import {Link} from '~/components';
 
@@ -17,7 +17,7 @@ export async function loader({context, params}) {
   }
 
   // TODO: Query for this?
-  return json({shopName: 'Hydrogen'});
+  return json({shopName: 'HallyuStars'});
 }
 
 const badRequest = (data) => json(data, {status: 400});
@@ -35,7 +35,7 @@ export const action = async ({request, context, params}) => {
     typeof password !== 'string'
   ) {
     return badRequest({
-      formError: 'Please provide both an email and a password.',
+      formError: 'Por favor, proporciona un correo electrónico y una contraseña.',
     });
   }
 
@@ -86,7 +86,7 @@ export const action = async ({request, context, params}) => {
       return (
         <div className="flex justify-center my-24 px-4">
           <div className="max-w-md w-full">
-            <h1 className="text-4xl">Iniciar sesión.</h1>
+            <h1 className="text-4xl">Iniciar sesión</h1>
             {/* TODO: Agregar onSubmit para validar _antes_ del envío con native? */}
             <Form
               method="post"
@@ -160,17 +160,17 @@ export const action = async ({request, context, params}) => {
                 )}
               </div>
               <div className="flex items-center justify-between">
-                <button
-                  className="bg-primary text-contrast rounded py-2 px-4 focus:shadow-outline block w-full"
+                <Button
+                  className=" block w-full"
                   type="submit"
                   disabled={!!(nativePasswordError || nativeEmailError)}
                 >
                   Iniciar sesión
-                </button>
+                </Button>
               </div>
               <div className="flex justify-between items-center mt-8 border-t border-gray-300">
                 <p className="align-baseline text-sm mt-6">
-                  ¿Eres nuevo en {shopName}? &nbsp;
+                  ¿No tienes cuenta {shopName}? <br/>
                   <Link className="inline underline" to="/account/register">
                     Crea una cuenta
                   </Link>

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import {flattenConnection, Image, Money, useMoney} from '@shopify/hydrogen';
 import {Text, Link, AddToCartButton, Button} from '~/components';
 import {isDiscounted, isNewArrival} from '~/lib/utils';
-import {getProductPlaceholder} from '~/lib/placeholders';
+import { getProductPlaceholder } from '~/lib/placeholders';
 
 export function ProductCard({
   product,
@@ -62,7 +62,8 @@ export function ProductCard({
             <Text
               as="label"
               size="fine"
-              className="absolute top-0 right-0 m-4 text-right text-notice"
+              style={{zIndex: 1}}
+              className="absolute top-0 right-0 m-4 text-right text-contrast dark:text-primary bg-fuchsia-500 bg-contrast  rounded-md px-3 py-2 gradient-border"
             >
               {cardLabel}
             </Text>

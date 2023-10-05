@@ -1,7 +1,20 @@
-@font-face {
+/* @font-face {
   font-family: 'Keep on Truckin';
   display: swap;
   font-weight: 400;
   src: url('app/styles/fonts/KeeponTruckin.ttf') format('truetype');
 }
-
+ */
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  font-display: swap;
+  font-weight: 400;
+  src: url('./fonts/Roboto-Regular.ttf') format('ttf');
+}
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic;
+  src: url('./fonts/Roboto-Italic.ttf') format('ttf');
+}

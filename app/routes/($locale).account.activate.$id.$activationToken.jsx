@@ -39,7 +39,7 @@ export const action = async ({
     password !== passwordConfirm
   ) {
     return badRequest({
-      formError: 'Please provide matching passwords',
+      formError: 'Por favor, ingrese una contraseña y vuelva a ingresarla.',
     });
   }
 

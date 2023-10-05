@@ -148,10 +148,10 @@ function NoResults({noResults, recommendations}) {
 
             return (
               <>
-                <FeaturedCollections
+                {/* <FeaturedCollections
                   title="Colecciones Destacadas"
                   collections={featuredCollections}
-                />
+                /> */}
                 <ProductSwimlane
                   title="Productos Destacados"
                   products={featuredProducts}

@@ -1,7 +1,7 @@
 import {redirect, json} from '@shopify/remix-oxygen';
 import {Form, useActionData} from '@remix-run/react';
 import {useState} from 'react';
-
+import {Button} from '~/components';
 import {getInputStyleClasses} from '~/lib/utils';
 import {Link} from '~/components';
 
@@ -89,7 +89,7 @@ export default function Register() {
   return (
     <div className="flex justify-center my-24 px-4">
       <div className="max-w-md w-full">
-        <h1 className="text-4xl">Crear una Cuenta.</h1>
+        <h1 className="text-4xl">Crear una Cuenta</h1>
         {/* TODO: Add onSubmit to validate _before_ submission with native? */}
         <Form
           method="post"
@@ -162,13 +162,13 @@ export default function Register() {
             )}
           </div>
           <div className="flex items-center justify-between">
-            <button
-              className="bg-primary text-contrast rounded py-2 px-4 focus:shadow-outline block w-full"
+            <Button
+              className=" block w-full"
               type="submit"
               disabled={!!(nativePasswordError || nativeEmailError)}
             >
               Crear Cuenta
-            </button>
+            </Button>
           </div>
           <div className="flex items-center mt-8 border-t border-gray-300">
             <p className="align-baseline text-sm mt-6">

@@ -1,6 +1,7 @@
 import {json, redirect} from '@shopify/remix-oxygen';
 import {Form, useActionData} from '@remix-run/react';
-import {useState} from 'react';
+import { useState } from 'react';
+import { Button } from '~/components';
 
 import {Link} from '~/components';
 import {getInputStyleClasses} from '~/lib/utils';
@@ -108,12 +109,12 @@ export default function Recover() {
                 )}
               </div>
               <div className="flex items-center justify-between">
-                <button
-                  className="bg-primary text-contrast rounded py-2 px-4 focus:shadow-outline block w-full"
+                <Button
+                  className=" block w-full"
                   type="submit"
                 >
-                  Solicitar Enlace de Restablecimiento
-                </button>
+                  Solicitar enlace de restablecimiento
+                </Button>
               </div>
               <div className="flex items-center mt-8 border-t border-gray-300">
                 <p className="align-baseline text-sm mt-6">
