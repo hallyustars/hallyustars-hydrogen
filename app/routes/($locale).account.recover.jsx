@@ -118,7 +118,7 @@ export default function Recover() {
               </div>
               <div className="flex items-center mt-8 border-t border-gray-300">
                 <p className="align-baseline text-sm mt-6">
-                  Return to &nbsp;
+                  Ir a &nbsp;
                   <Link className="inline underline" to="/account/login">
                     Iniciar Sesión
                   </Link>

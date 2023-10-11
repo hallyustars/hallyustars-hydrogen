@@ -66,7 +66,7 @@ export default function OrderRoute() {
     <div>
       <PageHeader heading="Order detail">
         <Link to="/account">
-          <Text color="subtle">Return to Account Overview</Text>
+          <Text color="subtle"> Volver a la cuenta</Text>
         </Link>
       </PageHeader>
       <div className="w-full p-6 sm:grid-cols-1 md:p-8 lg:p-12 lg:py-6">

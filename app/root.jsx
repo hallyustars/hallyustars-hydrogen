@@ -151,10 +151,6 @@ export default function App() {
             "interactivity": {
               "detectsOn": "window",
               "events": {
-                "onClick": {
-                  "enable": true,
-                  "mode": "repulse"
-                },
                 "onDiv": {
                   "selectors": [],
                   "enable": false,
